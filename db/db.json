@@ -1,41 +1,17 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text"
-    },
-    {
-        "title": "lkl",
-        "text": "lol\n",
-        "note_id": "e40d"
-    },
-    {
-        "title": "laksdf",
-        "text": "lkasdlfa\n",
-        "note_id": "4256"
-    },
-    {
-        "title": "clean room",
-        "text": "before dinner",
-        "note_id": "e2cf"
-    },
-    {
         "title": "meow",
         "text": "art\n",
-        "note_id": "ac71"
+        "id": "ac71"
     },
     {
         "title": "Cats",
         "text": "I am a cat enthuisast\n",
-        "note_id": "fb65"
+        "id": "fb65"
     },
     {
         "title": "Test",
         "text": "is this giving a better alert?\n",
-        "note_id": "fb9d"
-    },
-    {
-        "title": "another test",
-        "text": "blub",
-        "note_id": "ff9a"
+        "id": "fb9d"
     }
 ]
