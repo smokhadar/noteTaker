@@ -1,12 +1,12 @@
-const fs = require('fs');
 // const path = require('path');
 const notes = require('express').Router();
 const uuid = require('../helpers/uuid');
-const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
+const { readAndAppend } = require('../helpers/fsUtils');
+const notesFiles = require('../db/db.json');
 
 notes.get('/', (req, res) => {
-    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
-    })
+    res.json(notesFiles);
+})
 
 notes.post('/', (req, res) => {
     console.info(`${req.method} request received.`)
@@ -19,9 +19,6 @@ notes.post('/', (req, res) => {
             text,
             note_id: uuid(),
         };
-
-        //convert data to string to save
-        // const noteString = JSON.stringify(newNote);
 
         readAndAppend(newNote, `./db/db.json`, (err) =>
             err
@@ -36,8 +33,8 @@ notes.post('/', (req, res) => {
             body: newNote,
         };
         
-        console.log(response);
-        res.status(201).json(response);
+        console.log(response.status);
+        res.status(201).json(response.status);
     } else {
         res.status(500).json('Error in posting note')
     }

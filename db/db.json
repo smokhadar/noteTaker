@@ -22,5 +22,20 @@
         "title": "meow",
         "text": "art\n",
         "note_id": "ac71"
+    },
+    {
+        "title": "Cats",
+        "text": "I am a cat enthuisast\n",
+        "note_id": "fb65"
+    },
+    {
+        "title": "Test",
+        "text": "is this giving a better alert?\n",
+        "note_id": "fb9d"
+    },
+    {
+        "title": "another test",
+        "text": "blub",
+        "note_id": "ff9a"
     }
 ]

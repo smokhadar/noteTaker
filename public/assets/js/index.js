@@ -12,6 +12,44 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
+// Show an element
+const show = (elem) => {
+  elem.style.display = 'inline';
+};
+
+// Hide an element
+const hide = (elem) => {
+  elem.style.display = 'none';
+};
+
+// activeNote is used to keep track of the note in the textarea
+let activeNote = {};
+
+const getNotes = () =>
+  fetch('/api/notes', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    });
+
+const saveNote = (note) =>
+  fetch('/api/notes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(note),
+    });
+
+const deleteNote = (id) =>
+  fetch(`/api/notes/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
 // Render the list of note titles
 const renderNoteList = async (notes) => {
   let jsonNotes = await notes.json();
@@ -66,56 +104,6 @@ const renderNoteList = async (notes) => {
   }
 };
 
-// Show an element
-const show = (elem) => {
-  elem.style.display = 'inline';
-};
-
-// Hide an element
-const hide = (elem) => {
-  elem.style.display = 'none';
-};
-
-// activeNote is used to keep track of the note in the textarea
-let activeNote = {};
-
-const getNotes = () =>
-  fetch('/api/notes', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => data)
-    .catch((error) => {
-      console.error('error:', error);
-    });
-
-const saveNote = (note) =>
-  fetch('/api/notes', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(note),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      alert(data);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-
-// const deleteNote = (id) =>
-//   fetch(`/api/notes/${id}`, {
-//     method: 'DELETE',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   });
-
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
@@ -143,23 +131,23 @@ const handleNoteSave = () => {
   });
 };
 
-// // Delete the clicked note
-// const handleNoteDelete = (e) => {
-//   // Prevents the click listener for the list from being called when the button inside of it is clicked
-//   e.stopPropagation();
+// Delete the clicked note
+const handleNoteDelete = (e) => {
+  // Prevents the click listener for the list from being called when the button inside of it is clicked
+  e.stopPropagation();
 
-//   const note = e.target;
-//   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+  const note = e.target;
+  const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
 
-//   if (activeNote.id === noteId) {
-//     activeNote = {};
-//   }
+  if (activeNote.id === noteId) {
+    activeNote = {};
+  }
 
-//   deleteNote(noteId).then(() => {
-//     getAndRenderNotes();
-//     renderActiveNote();
-//   });
-// };
+  deleteNote(noteId).then(() => {
+    getAndRenderNotes();
+    renderActiveNote();
+  });
+};
 
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
